@@ -19,7 +19,9 @@ def index(request):
     return render(request, "app/index.html", context=context)
 
 
-class IndexViews(generic.ListView):
-    model = Car
+class FlightListViews(generic.ListView):
+    model = Flight
     fields = "__all__"
-    # template_name = "car_list.html"
+
+
+
