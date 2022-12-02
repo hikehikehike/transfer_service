@@ -24,4 +24,6 @@ class FlightListViews(generic.ListView):
     fields = "__all__"
 
 
-
+class CarListViews(generic.ListView):
+    model = Car
+    fields = "__all__"

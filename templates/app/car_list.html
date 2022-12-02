@@ -1,2 +1,8 @@
-test
-{{ car.name }}
+{% extends "base.html" %}
+
+{% block content %}
+  {% for car in car_list %}
+    <li>{{ car.name }}. Посадочных мест: {{ car.capacity }}</li>
+  {% endfor %}
+
+{% endblock %}
