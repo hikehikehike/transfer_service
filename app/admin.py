@@ -13,4 +13,3 @@ class ClientAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + (
         (("Additional info", {"fields": ("phone_number",)}),)
     )
-

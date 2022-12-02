@@ -1,3 +1,25 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views import generic
 
-# Create your views here.
+from app.models import Car, Client, Flight
+
+
+def index(request):
+    car = Car.objects.count()
+    client = Client.objects.count()
+    flight = Flight.objects.all()
+
+    context ={
+        "car": car,
+        "client": client,
+        "flight": flight
+    }
+
+    return render(request, "app/index.html", context=context)
+
+
+class IndexViews(generic.ListView):
+    model = Car
+    fields = "__all__"
+    # template_name = "car_list.html"
