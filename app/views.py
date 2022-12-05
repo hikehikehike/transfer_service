@@ -27,3 +27,8 @@ class FlightListViews(generic.ListView):
 class CarListViews(generic.ListView):
     model = Car
     fields = "__all__"
+
+
+class FlightDetailViews(generic.DetailView):
+    model = Flight
+
