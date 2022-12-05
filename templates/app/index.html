@@ -7,7 +7,7 @@
 <h3>
   Наши маршруты:
     {% for foo in flight %}
-      <li>{{ foo.name }}</li>
+      <li><a href="{% url 'app:flight-detail' pk=foo.id %}">{{ foo.name }}</a></li>
     {% endfor %}
 
 </h3>
