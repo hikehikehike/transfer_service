@@ -24,5 +24,18 @@ class Flight(models.Model):
 
 class Client(AbstractUser):
     name = models.CharField(max_length=255)
-    phone_number = models.IntegerField(null=True, blank=True)
-    flight = models.ManyToManyField(Flight, related_name="client")
+    phone_number = models.IntegerField(default=380, unique=True)
+
+    def save(self, *args, **kwargs):
+        self.username = self.phone_number
+        super(Client, self).save(*args, **kwargs)
+
+
+
+class Order(models.Model):
+    flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
+    date_flight = models.DateTimeField()
+    number_of_seat = models.IntegerField(default=1)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+
+
