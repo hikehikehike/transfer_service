@@ -48,15 +48,15 @@ def order_flight_views(request, pk):
 
     form_client = ClientForm(request.POST or None)
     if form_client.is_valid():
-        if Client.objects.filter(phone_number=form_client.phone_number).first():
-            form_client = Client.objects.filter(phone_number=form_client.phone_number)
+        if Client.objects.filter(phone_number=form_client.cleaned_data["phone_number"]).first():
+            form_client = Client.objects.filter(phone_number=form_client.cleaned_data["phone_number"])
         else:
             form_client.save()
     context["form_client"] = form_client
 
     initial_dict = {
-        "flight": pk,
-
+        "flight": flight,
+        "client": form_client
     }
 
     form_order = OrderFrom(request.POST or None, initial=initial_dict)

@@ -1,10 +1,9 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
 
 from app.models import Order, Client
 
 
-class ClientForm(UserCreationForm):
+class ClientForm(forms.ModelForm):
 
     class Meta:
 
