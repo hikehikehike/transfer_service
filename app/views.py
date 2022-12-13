@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.urls import reverse
 from django.views import generic
 
-from app.forms import ClientForm, OrderFrom
-from app.models import Car, Client, Flight, Order
+from app.forms import ClientCreationFrom, OrderFrom
+from app.models import Car, Client, Flight
 
 
 def index(request):
@@ -11,7 +13,7 @@ def index(request):
     client = Client.objects.count()
     flight = Flight.objects.all()
 
-    context ={
+    context = {
         "car": car,
         "client": client,
         "flight": flight
@@ -34,35 +36,24 @@ class FlightDetailViews(generic.DetailView):
     model = Flight
 
 
-# class OrderFlightViews(generic.CreateView):
-#     model = Order
-#     fields = "__all__"
-    # success_url = reverse_lazy("app:thanks")
+class ClientCreation(generic.CreateView):
+    model = Client
+    form_class = ClientCreationFrom
 
-def order_flight_views(request, pk):
-    flight = Flight.objects.get(pk=pk)
 
-    context = {
-        "flight": flight
-    }
+@login_required
+def order_creation(request, pk):
 
-    form_client = ClientForm(request.POST or None)
-    if form_client.is_valid():
-        if Client.objects.filter(phone_number=form_client.cleaned_data["phone_number"]).first():
-            form_client = Client.objects.filter(phone_number=form_client.cleaned_data["phone_number"])
-        else:
-            form_client.save()
-    context["form_client"] = form_client
+    if request.method == "POST":
+        post_value = request.POST.copy()
+        post_value["flight"] = pk
+        post_value["client"] = request.user.id
+        form = OrderFrom(post_value)
+        if form.is_valid():
 
-    initial_dict = {
-        "flight": flight,
-        "client": form_client
-    }
+            form.save()
+            return HttpResponseRedirect(reverse("app:flight-list"))  # reverse /thank/
+    else:
+        form = OrderFrom()
 
-    form_order = OrderFrom(request.POST or None, initial=initial_dict)
-    if form_order.is_valid():
-        form_order.save()
-
-    context["form_order"] = form_order
-
-    return render(request, "app/order_form.html", context=context)
+    return render(request, "app/order_form.html", {'form': form})
