@@ -8,7 +8,7 @@
   <p>Время в пути: {{ flight.arrival_time|sub:flight.departure_time }}</p>
   <p>Стоимость: {{ flight.cost }}</p>
 
-  <a href="{% url 'app:flight-order' pk=flight.id%}">Купить билет</a>
+  <a href="{% url 'app:order-creation' pk=flight.pk %}">Купить билет</a>
 
 
 {% endblock %}
