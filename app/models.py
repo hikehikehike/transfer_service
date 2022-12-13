@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.urls import reverse
 
 
 class Car(models.Model):
@@ -30,6 +31,8 @@ class Client(AbstractUser):
         self.username = self.phone_number
         super(Client, self).save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse("login")
 
 
 class Order(models.Model):
