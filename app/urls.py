@@ -6,7 +6,8 @@ from app.views import (
     CarListViews,
     FlightDetailViews,
     ClientCreation,
-    order_creation
+    order_creation,
+    thanks
 )
 
 urlpatterns = [
@@ -15,7 +16,8 @@ urlpatterns = [
     path("car/", CarListViews.as_view(), name="car-list"),
     path("flight/<int:pk>/", FlightDetailViews.as_view(), name="flight-detail"),
     path("flight/<int:pk>/order/", order_creation, name="order-creation"),
-    path("client/creation", ClientCreation.as_view(), name="client-creation")
+    path("client/creation", ClientCreation.as_view(), name="client-creation"),
+    path("thanks/<int:pk>", thanks, name="thanks")
 ]
 
 

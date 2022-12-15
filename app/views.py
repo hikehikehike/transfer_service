@@ -1,11 +1,12 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
 
 from app.forms import ClientCreationFrom, OrderFrom
-from app.models import Car, Client, Flight
+from app.models import Car, Client, Flight, Order
 
 
 def index(request):
@@ -22,17 +23,17 @@ def index(request):
     return render(request, "app/index.html", context=context)
 
 
-class FlightListViews(generic.ListView):
+class FlightListViews(LoginRequiredMixin, generic.ListView):
     model = Flight
     fields = "__all__"
 
 
-class CarListViews(generic.ListView):
+class CarListViews(LoginRequiredMixin, generic.ListView):
     model = Car
     fields = "__all__"
 
 
-class FlightDetailViews(generic.DetailView):
+class FlightDetailViews(LoginRequiredMixin, generic.DetailView):
     model = Flight
 
 
@@ -52,8 +53,27 @@ def order_creation(request, pk):
         if form.is_valid():
 
             form.save()
-            return HttpResponseRedirect(reverse("app:flight-list"))  # reverse /thank/
+            return HttpResponseRedirect(reverse("app:thanks", args=[pk]))
     else:
         form = OrderFrom()
 
-    return render(request, "app/order_form.html", {'form': form})
+    flight = Flight.objects.get(pk=pk)
+    context = {
+            "form": form,
+            "flight": flight
+        }
+    return render(
+        request,
+        "app/order_form.html",
+        context=context
+    )
+
+
+def thanks(request, pk):
+    order = Order.objects.filter(pk=pk)
+
+    context = {
+        "order": order
+    }
+
+    return render(request, "app/thanks.html", context=context)
