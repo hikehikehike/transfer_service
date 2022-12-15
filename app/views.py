@@ -12,12 +12,14 @@ from app.models import Car, Client, Flight, Order
 def index(request):
     car = Car.objects.count()
     client = Client.objects.count()
+    order = Order.objects.count()
     flight = Flight.objects.all()
 
     context = {
         "car": car,
         "client": client,
-        "flight": flight
+        "flight": flight,
+        "order": order
     }
 
     return render(request, "app/index.html", context=context)
