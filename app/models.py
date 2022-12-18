@@ -40,5 +40,3 @@ class Order(models.Model):
     date_flight = models.DateTimeField()
     number_of_seat = models.IntegerField(default=1)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-
-
