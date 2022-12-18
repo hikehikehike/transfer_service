@@ -1,8 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
-  {% for car in car_list %}
-    <li>{{ car.name }}. Посадочных мест: {{ car.capacity }}</li>
-  {% endfor %}
+<div class="page-header min-height-400" style="background-image: url('{{ ASSETS_ROOT }}/img/city-profile.jpg');" loading="lazy">
+  <span class="mask bg-gradient-primary opacity-3"></span>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7 text-center mx-auto">
+          <h1 class="text-white pt-3 mt-n5">Our fleet</h1>
+        </div>
+      </div>
+    </div>
+</div>
 
-{% endblock %}
+<div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6 mb-4">
+  <section class="py-3">
+    <div class="container">
+      {% for car in car_list %}
+      <div class="row">
+        <div class="col-lg-3 col-sm-6">
+          <div class="card card-plain">
+            <div class="card-body px-0">
+              <h5>
+                <p class="text-dark font-weight-bold">{{ car.name }}. Seats: {{ car.capacity }}</p>
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+
+{% include 'includes/scripts.html' %}
+{% endblock content %}

@@ -1,11 +1,60 @@
+
 {% extends "base.html" %}
-{% load crispy_forms_filters %}
+
 
 {% block content %}
-  <h1>{{ flight.name }}</h1>
-  <form action="" method="post" novalidate>
-    {% csrf_token %}
-    {{ form|crispy }}
-    <input type="submit" value="submit">
-  </form>
-{% endblock %}
+
+  {% include 'includes/navigation.html' %}
+
+  <section>
+    <div class="page-header min-vh-100">
+      <div class="container">
+        <div class="row">
+            <div class="card d-flex blur justify-content-center shadow-lg my-sm-0 my-sm-6 mt-8 mb-5">
+              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                <div class="bg-gradient-primary shadow-primary border-radius-lg p-3">
+                  <h3 class="text-white text-primary mb-0">{{ flight.name }}</h3>
+                </div>
+              </div>
+              <div class="card-body">
+                <p class="pb-3">
+                  We will contact you shortly to confirm your order.
+                </p>
+                <form method="post">
+                  {% csrf_token %}
+                  <div class="card-body p-0 my-3">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div id="div_id_date_flight" class="input-group input-group-static mb-4">
+                          <label for="id_date_flight">Date flight</label>
+                          <input type="text" class="form-control" placeholder="2022-10-8" name="date_flight" required="" id="id_date_flight">
+                        </div>
+                      </div>
+                      <div class="col-md-6 ps-md-2">
+                        <div class="input-group input-group-static mb-4">
+                          <label for="id_number_of_seat">Number of seat</label>
+                          <input type="number" class="form-control" name="number_of_seat" value="1" required="" id="id_number_of_seat">
+                        </div>
+                      </div>
+                    </div>
+{#                    <div class="form-group mb-0 mt-md-0 mt-4">#}
+{#                      <div class="input-group input-group-static mb-4">#}
+{#                        <label>How can we help you?</label>#}
+{#                        <textarea name="message" class="form-control" id="message" rows="6" placeholder="Describe your problem in at least 250 characters"></textarea>#}
+{#                      </div>#}
+{#                    </div>#}
+                    <div class="row">
+                      <div class="col-md-12 text-center">
+                        <button type="submit" class="btn bg-gradient-primary mt-3 mb-0">Confirm</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+</section>
+{% include 'includes/scripts.html' %}
+{% endblock content %}

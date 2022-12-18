@@ -54,8 +54,8 @@ def order_creation(request, pk):
         form = OrderFrom(post_value)
         if form.is_valid():
 
-            form.save()
-            return HttpResponseRedirect(reverse("app:thanks", args=[pk]))
+            order = form.save()
+            return HttpResponseRedirect(reverse("app:thanks", args=[order.pk]))
     else:
         form = OrderFrom()
 
@@ -72,8 +72,7 @@ def order_creation(request, pk):
 
 
 def thanks(request, pk):
-    order = Order.objects.filter(pk=pk)
-
+    order = Order.objects.get(pk=pk)
     context = {
         "order": order
     }
