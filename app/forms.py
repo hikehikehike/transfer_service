@@ -19,12 +19,12 @@ class OrderFrom(forms.ModelForm):
     class Meta:
         model = Order
         fields = [
-            "flight",
-            "date_flight",
+            "trip",
+            "date_trip",
             "number_of_seat",
             "client"
         ]
         widgets = {
-            "flight": forms.HiddenInput(),
+            "trip": forms.HiddenInput(),
             "client": forms.HiddenInput()
         }

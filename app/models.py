@@ -12,7 +12,7 @@ class Car(models.Model):
         return f"{self.name}. Capacity: {self.capacity}. Comfort: {self.comfort}"
 
 
-class Flight(models.Model):
+class Trip(models.Model):
     name = models.CharField(max_length=255)
     departure_time = models.DateTimeField()
     arrival_time = models.DateTimeField()
@@ -36,7 +36,7 @@ class Client(AbstractUser):
 
 
 class Order(models.Model):
-    flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
-    date_flight = models.DateTimeField()
+    trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
+    date_trip = models.DateTimeField()
     number_of_seat = models.IntegerField(default=1)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)

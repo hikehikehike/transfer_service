@@ -2,9 +2,9 @@ from django.urls import path
 
 from app.views import (
     index,
-    FlightListViews,
+    TripListViews,
     CarListViews,
-    FlightDetailViews,
+    TripDetailViews,
     ClientCreation,
     order_creation,
     thanks
@@ -12,10 +12,10 @@ from app.views import (
 
 urlpatterns = [
     path("", index, name="index"),
-    path("flight/", FlightListViews.as_view(), name="flight-list"),
+    path("trip/", TripListViews.as_view(), name="trip-list"),
     path("car/", CarListViews.as_view(), name="car-list"),
-    path("flight/<int:pk>/", FlightDetailViews.as_view(), name="flight-detail"),
-    path("flight/<int:pk>/order/", order_creation, name="order-creation"),
+    path("trip/<int:pk>/", TripDetailViews.as_view(), name="trip-detail"),
+    path("trip/<int:pk>/order/", order_creation, name="order-creation"),
     path("client/creation", ClientCreation.as_view(), name="client-creation"),
     path("thanks/<int:pk>", thanks, name="thanks")
 ]

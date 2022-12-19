@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load mathfilters %}
 
 {% block content %}
 <div class="page-header min-height-400" style="background-image: url('{{ ASSETS_ROOT }}/img/city-profile.jpg');" loading="lazy">
@@ -6,7 +7,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-7 text-center mx-auto">
-          <h1 class="text-white pt-3 mt-n5">List of our flights</h1>
+          <h1 class="text-white pt-3 mt-n5">{{ trip.name }}</h1>
         </div>
       </div>
     </div>
@@ -15,22 +16,27 @@
 <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6 mb-4">
   <section class="py-3">
     <div class="container">
-      {% for flight in flight_list %}
       <div class="row">
         <div class="col-lg-3 col-sm-6">
           <div class="card card-plain">
             <div class="card-body px-0">
               <h5>
-                <a href="{% url 'app:flight-detail' pk=flight.id %}" class="text-dark font-weight-bold">{{ flight.name }}</a>
+                <p class="text-dark font-weight-bold">Departure time: {{ trip.departure_time|date:"H:i" }}</p>
+                <p class="text-dark font-weight-bold">Arrival time: {{ trip.arrival_time|date:"H:i" }}</p>
+                <p class="text-dark font-weight-bold">Travel time: {{ trip.arrival_time|sub:trip.departure_time }}</p>
+                <p class="text-dark font-weight-bold">Price {{ trip.cost }} ₴</p>
               </h5>
             </div>
           </div>
         </div>
+        <div class="col-md-6 text-end ms-auto">
+          <a href="{% url 'app:order-creation' pk=trip.pk %}" class="btn bg-gradient-primary mb-0">buy a ticket</a>
+        </div>
       </div>
-      {% endfor %}
     </div>
   </section>
 </div>
 
 {% include 'includes/scripts.html' %}
+
 {% endblock content %}

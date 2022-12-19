@@ -6,27 +6,27 @@ from django.urls import reverse
 from django.views import generic
 
 from app.forms import ClientCreationFrom, OrderFrom
-from app.models import Car, Client, Flight, Order
+from app.models import Car, Client, Trip, Order
 
 
 def index(request):
     car = Car.objects.count()
     client = Client.objects.count()
     order = Order.objects.count()
-    flight = Flight.objects.all()
+    trip = Trip.objects.all()
 
     context = {
         "car": car,
         "client": client,
-        "flight": flight,
+        "trip": trip,
         "order": order
     }
 
     return render(request, "app/index.html", context=context)
 
 
-class FlightListViews(LoginRequiredMixin, generic.ListView):
-    model = Flight
+class TripListViews(LoginRequiredMixin, generic.ListView):
+    model = Trip
     fields = "__all__"
 
 
@@ -35,8 +35,8 @@ class CarListViews(LoginRequiredMixin, generic.ListView):
     fields = "__all__"
 
 
-class FlightDetailViews(LoginRequiredMixin, generic.DetailView):
-    model = Flight
+class TripDetailViews(LoginRequiredMixin, generic.DetailView):
+    model = Trip
 
 
 class ClientCreation(generic.CreateView):
@@ -49,7 +49,7 @@ def order_creation(request, pk):
 
     if request.method == "POST":
         post_value = request.POST.copy()
-        post_value["flight"] = pk
+        post_value["trip"] = pk
         post_value["client"] = request.user.id
         form = OrderFrom(post_value)
         if form.is_valid():
@@ -59,10 +59,10 @@ def order_creation(request, pk):
     else:
         form = OrderFrom()
 
-    flight = Flight.objects.get(pk=pk)
+    trip = Trip.objects.get(pk=pk)
     context = {
             "form": form,
-            "flight": flight
+            "trip": trip
         }
     return render(
         request,
