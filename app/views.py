@@ -71,6 +71,7 @@ def order_creation(request, pk):
     )
 
 
+@login_required
 def thanks(request, pk):
     order = Order.objects.get(pk=pk)
     context = {
