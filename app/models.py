@@ -1,6 +1,12 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
+from django.db.models import DateTimeField
+
+
+class DateTimeWithoutTZField(DateTimeField):
+    def db_type(self, connection):
+        return 'timestamp'
 
 
 class Car(models.Model):
@@ -14,8 +20,8 @@ class Car(models.Model):
 
 class Trip(models.Model):
     name = models.CharField(max_length=255)
-    departure_time = models.DateTimeField()
-    arrival_time = models.DateTimeField()
+    departure_time = DateTimeWithoutTZField()
+    arrival_time = DateTimeWithoutTZField()
     cost = models.IntegerField()
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
 
@@ -37,6 +43,6 @@ class Client(AbstractUser):
 
 class Order(models.Model):
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
-    date_trip = models.DateTimeField()
+    date_trip = DateTimeWithoutTZField()
     number_of_seat = models.IntegerField(default=1)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)

@@ -6,3 +6,4 @@ exceptiongroup==1.0.4
 generic==1.1.1
 sqlparse==0.4.3
 dj_database_url==1.2.0
+psycopg2==2.9.5
