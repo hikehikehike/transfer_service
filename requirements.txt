@@ -5,7 +5,7 @@ django-crispy-forms==1.14.0
 django-mathfilters==1.0.0
 exceptiongroup==1.0.4
 generic==1.1.1
+gunicorn==20.1.0
 psycopg2==2.9.5
 sqlparse==0.4.3
 whitenoise==6.2.0
-gunicorn==20.1.0
