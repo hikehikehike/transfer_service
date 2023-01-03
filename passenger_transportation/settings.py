@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "app",
     "mathfilters",
     "crispy_forms",
+    "phonenumber_field",
 ]
 
 MIDDLEWARE = [

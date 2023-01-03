@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
 from django.db.models import DateTimeField
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class DateTimeWithoutTZField(DateTimeField):
@@ -31,7 +32,7 @@ class Trip(models.Model):
 
 class Client(AbstractUser):
     name = models.CharField(max_length=255)
-    phone_number = models.IntegerField(default=380, unique=True)
+    phone_number = PhoneNumberField(null=False, blank=False, unique=True)
 
     def save(self, *args, **kwargs):
         self.username = self.phone_number

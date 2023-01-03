@@ -1,10 +1,12 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from phonenumber_field.formfields import PhoneNumberField
 
 from app.models import Client, Order
 
 
 class ClientCreationFrom(UserCreationForm):
+    phone_number = PhoneNumberField(region="UA")
 
     class Meta:
         model = Client
