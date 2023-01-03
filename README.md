@@ -6,12 +6,19 @@ Django project for ordering tickets
 
 [Project deployed to render](https://southern-express.onrender.com/)
 
+**Test user**
+
+Login: _user_
+
+Password: _user12345_
+
+
 ### Features
 
 * View vehicle list
 * Create an order by a customer
 
-### Features
+### In developing
 
 * Sending an order to telegram bot
 * Search for available trips
