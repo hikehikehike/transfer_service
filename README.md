@@ -52,4 +52,4 @@ Password: _user12345_
 
 #### Registration:
 
-![Registration](demo_image/order.png)
+![Registration](demo_image/registration.png)
